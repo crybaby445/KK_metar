@@ -67,6 +67,7 @@ Here's what the codes mean:
 KK_metar/
 ├── app.py              # Flask application and routes
 ├── metar_decoder.py    # METAR parsing and decoding logic
+├── test_metar.py       # Unit tests
 ├── requirements.txt    # Python dependencies
 ├── README.md
 └── templates/
@@ -174,6 +175,52 @@ WEATHER_CODES = {
     # Add new codes here
 }
 ```
+
+## Testing
+
+The project includes a comprehensive test suite with 57 tests using pytest.
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest test_metar.py -v
+
+# Run specific test class
+pytest test_metar.py::TestWindParsing -v
+
+# Run with coverage (requires pytest-cov)
+pytest test_metar.py --cov=metar_decoder --cov=app
+```
+
+### Test Coverage
+
+| Category | Tests | Description |
+|----------|-------|-------------|
+| Unit Conversions | 3 | knots→mph, °C→°F, degrees→compass |
+| Wind Parsing | 5 | Calm, standard, gusts, variable, strong winds |
+| Visibility | 5 | Excellent to poor visibility, fractional values |
+| Cloud Parsing | 7 | Clear, few, scattered, broken, overcast, cumulonimbus |
+| Temperature | 3 | Positive, negative, and mixed temperatures |
+| Altimeter | 3 | US (inHg) and international (QNH) formats |
+| Weather Phenomena | 9 | Rain, snow, fog, thunderstorms, freezing rain, etc. |
+| Full METAR Decoding | 11 | Complete decoding of various weather scenarios |
+| Flask Routes | 9 | GET/POST requests, validation, error handling |
+| Integration | 2 | End-to-end weather display tests |
+
+### Mock METAR Data
+
+Tests use mock METAR strings representing various weather scenarios:
+- Clear calm day
+- Windy with gusts
+- Rain and reduced visibility
+- Heavy snow
+- Fog
+- Thunderstorms
+- Freezing rain
+- Multiple cloud layers
+
+This allows testing without making actual API calls.
 
 ## Data Source
 
