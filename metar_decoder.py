@@ -94,6 +94,8 @@ COMPASS_DIRECTIONS = {
 
 def degrees_to_direction(degrees: int) -> str:
     """Convert wind degrees to compass direction"""
+    # Normalize 360 to 0 (both are north)
+    degrees = degrees % 360
     for (low, high), direction in COMPASS_DIRECTIONS.items():
         if low <= degrees < high:
             return direction
